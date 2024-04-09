@@ -1,3 +1,5 @@
+// обьявление всех категорий новостей
+
 let breakingImg = document.querySelector('#breakingImg')
 let breakingNews_title = document.querySelector('#breakingNews .title')
 let breakingNews_desc = document.querySelector('#breakingNews .description')
@@ -28,10 +30,12 @@ window.addEventListener('scroll',()=>{
     }
 })
 
-const apiKey = "d1f40f71ce17466ea80951f851d5ee46"
+// API ключ
+const apiKey = "94960d48ddab494e866f922f3e35a057"
 
+// Запрос данных с API
 const fetchData = async (category,pageSize)=>{
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&pageSize=${pageSize}&apiKey=${apiKey}`
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=general&pageSize=5&apiKey=94960d48ddab494e866f922f3e35a057`
     const data = await fetch(url)
     const response = await data.json()
     console.log(response);
@@ -47,7 +51,7 @@ searchInput.addEventListener("input", e => {
     console.log(articles)
     
 })
-
+// Добавление и отображение важных новостей, логика работы сортировки
 const add_breakingNews = (data)=>{
     breakingImg.innerHTML = `<img src=${data[0].urlToImage} alt="image">`
     breakingNews_title.innerHTML = `<a href=${data[0].url} target="_blank"><h2>${data[0].title}</h2></a>`
@@ -55,6 +59,7 @@ const add_breakingNews = (data)=>{
 }
 fetchData('general',5).then(add_breakingNews)
 
+// Добавление и отображение топ новостей, логика работы сортировки
 const add_topNews = (data)=>{
     let html = ''
     let title = ''
@@ -81,6 +86,8 @@ const add_topNews = (data)=>{
 }
 fetchData('general',20).then(add_topNews)
 
+// Добавление и отображение спортивных новостей, логика работы сортировки
+
 const add_sportsNews = (data)=>{
     let html = ''
     let title = ''
@@ -105,6 +112,7 @@ const add_sportsNews = (data)=>{
     })
     sportsNews.innerHTML = html
 }
+// Добавление и отображение бизнес новостей, логика работы сортировки
 fetchData('sports',5).then(add_sportsNews)
 const add_businessNews = (data)=>{
     let html = ''
@@ -130,6 +138,7 @@ const add_businessNews = (data)=>{
     })
     businessNews.innerHTML = html
 }
+// Добавление и отображение техно-новостей, логика работы сортировки
 fetchData('business',5).then(add_businessNews)
 const add_techNews = (data)=>{
     let html = ''
